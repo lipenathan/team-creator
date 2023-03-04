@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Team Creator</string>
+    <string name="title_players_register">Cadastro de Jogadores</string>
+    <string name="hint_edit_player_name">Nome do jogador</string>
+    <string name="hint_edit_main_position">Posição principal</string>
+    <string name="hint_edit_second_position">Posição secundária</string>
+    <string name="label_button_add">Adicionar</string>
+    <string name="title_players_list">Jogadores</string>
+    <string name="title_game_configuration">Informações do jogo</string>
+    <string name="label_button_next">Avançar</string>
+</resources>
