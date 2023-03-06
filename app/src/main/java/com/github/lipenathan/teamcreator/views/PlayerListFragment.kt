@@ -28,8 +28,10 @@ class PlayerListFragment : BaseFragment(R.layout.fragment_players_list) {
 
     private fun setListeners() {
         binding.buttonAdd.setOnClickListener {
-//            navigateAdding(CONTAINER, PlayerRegisterFragment(), BACK_STACK, this)
-            navigateAdding(CONTAINER, CollapseToolbarFragment(), BACK_STACK, this)
+            navigateAdding(CONTAINER, PlayerRegisterFragment(), BACK_STACK, this)
+        }
+        binding.buttonNextStep.setOnClickListener {
+            navigateReplacing(CONTAINER, GameConfigurationFragment(), BACK_STACK)
         }
     }
 

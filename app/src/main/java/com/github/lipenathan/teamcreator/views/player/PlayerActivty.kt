@@ -2,6 +2,7 @@ package com.github.lipenathan.teamcreator.views.player
 
 import android.os.Bundle
 import android.window.OnBackInvokedCallback
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.github.lipenathan.teamcreator.R
@@ -26,6 +27,16 @@ class PlayerActivty: AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(CONTAINER, PlayerListFragment(), BACK_STACK)
             .commit()
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val count = supportFragmentManager.backStackEntryCount
+                if (count > 1) {
+                    supportFragmentManager.popBackStack()
+                } else {
+                    finish()
+                }
+            }
+        })
     }
 
     object Navigation {

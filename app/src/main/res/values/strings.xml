@@ -8,4 +8,6 @@
     <string name="title_players_list">Jogadores</string>
     <string name="title_game_configuration">Informações do jogo</string>
     <string name="label_button_next">Avançar</string>
+    <string name="label_players_per_team">Jogadores por time</string>
+    <string name="label_teams_number">Número de times</string>
 </resources>

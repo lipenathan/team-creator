@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/button_plus"
+        android:layout_width="35dp"
+        android:layout_height="30dp"
+        android:background="@drawable/left_corner_rounded"
+        android:drawableLeft="@drawable/minus"
+        android:paddingLeft="6dp"
+        android:drawableTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_value"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        android:minWidth="40dp"
+        android:inputType="number"
+        android:textSize="18sp"
+        tools:text="5" />
+
+    <Button
+        android:id="@+id/button_minus"
+        android:layout_width="35dp"
+        android:layout_height="30dp"
+        android:background="@drawable/right_corner_rounded"
+        android:drawableRight="@drawable/plus"
+        android:paddingRight="6dp"
+        android:drawableTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</LinearLayout>
