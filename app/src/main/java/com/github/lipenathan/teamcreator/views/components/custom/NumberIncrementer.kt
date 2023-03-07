@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.core.widget.doAfterTextChanged
 import com.github.lipenathan.teamcreator.databinding.NumberIncrementerBinding
 
 class NumberIncrementer @JvmOverloads constructor(
@@ -28,11 +29,18 @@ class NumberIncrementer @JvmOverloads constructor(
                 if (value > 0) {
                     value--
                 }
-                editValue.setText(value)
+                editValue.setText(value.toString())
             }
             buttonPlus.setOnClickListener {
                 value++
-                editValue.setText(value)
+                editValue.setText(value.toString())
+            }
+            editValue.doAfterTextChanged {
+                if (it.toString().isEmpty()) {
+                    value = 0
+                } else {
+                    value = it.toString().toInt()
+                }
             }
         }
     }

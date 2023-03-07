@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <Button
-        android:id="@+id/button_plus"
+        android:id="@+id/button_minus"
         android:layout_width="35dp"
         android:layout_height="30dp"
         android:background="@drawable/left_corner_rounded"
@@ -24,12 +24,14 @@
         android:gravity="center"
         android:background="@android:color/transparent"
         android:minWidth="40dp"
+        android:text="1"
+        android:maxLength="2"
         android:inputType="number"
         android:textSize="18sp"
         tools:text="5" />
 
     <Button
-        android:id="@+id/button_minus"
+        android:id="@+id/button_plus"
         android:layout_width="35dp"
         android:layout_height="30dp"
         android:background="@drawable/right_corner_rounded"
