@@ -10,4 +10,5 @@
     <string name="label_button_next">Avançar</string>
     <string name="label_players_per_team">Jogadores por time</string>
     <string name="label_teams_number">Número de times</string>
+    <string name="label_button_create_team">Criar times</string>
 </resources>

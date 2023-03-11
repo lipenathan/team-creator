@@ -5,6 +5,9 @@ import com.github.lipenathan.teamcreator.model.Player
 class PlayerMemoryDataBase : BasicDAO<Player> {
 
     override fun save(o: Player) {
+        if (o.id == null) {
+            o.id = ID++
+        }
         players.add(o)
     }
 
@@ -17,6 +20,7 @@ class PlayerMemoryDataBase : BasicDAO<Player> {
     }
 
     companion object {
+        private var ID = 1L
         private val players = mutableListOf<Player>()
     }
 }

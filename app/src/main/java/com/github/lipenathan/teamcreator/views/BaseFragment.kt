@@ -6,7 +6,7 @@ open class BaseFragment(id: Int) : Fragment(id) {
 
     protected fun navigateReplacing(container: Int, fragment: Fragment, backStack: String? = null, removeFragment: Fragment? = null) {
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(container, fragment, backStack)
+        transaction.addToBackStack(backStack).replace(container, fragment)
         if (removeFragment != null) {
             transaction.remove(removeFragment)
         }
@@ -15,7 +15,7 @@ open class BaseFragment(id: Int) : Fragment(id) {
 
     protected fun navigateAdding(container: Int, fragment: Fragment, backStack: String? = null, removeFragment: Fragment? = null) {
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.add(container, fragment, backStack)
+        transaction.addToBackStack(backStack).add(container, fragment)
         if (removeFragment != null) {
             transaction.remove(removeFragment)
         }

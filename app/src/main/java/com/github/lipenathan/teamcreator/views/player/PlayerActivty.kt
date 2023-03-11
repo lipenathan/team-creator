@@ -1,13 +1,10 @@
 package com.github.lipenathan.teamcreator.views.player
 
 import android.os.Bundle
-import android.window.OnBackInvokedCallback
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.github.lipenathan.teamcreator.R
 import com.github.lipenathan.teamcreator.databinding.ActivityPlayerRegisterBinding
-import com.github.lipenathan.teamcreator.views.PlayerListFragment
 import com.github.lipenathan.teamcreator.views.player.PlayerActivty.Navigation.BACK_STACK
 import com.github.lipenathan.teamcreator.views.player.PlayerActivty.Navigation.CONTAINER
 
@@ -25,7 +22,7 @@ class PlayerActivty: AppCompatActivity() {
         window.statusBarColor = getColor(R.color.teal_200)
         setContentView(binding.root)
         supportFragmentManager.beginTransaction()
-            .replace(CONTAINER, PlayerListFragment(), BACK_STACK)
+            .add(CONTAINER, PlayerListFragment(), BACK_STACK)
             .commit()
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

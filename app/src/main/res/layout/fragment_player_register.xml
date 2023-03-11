@@ -95,7 +95,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_next_step"
+        android:id="@+id/button_add_player"
         style="@style/rounded_button_dark_grey"
         android:layout_width="wrap_content"
         android:layout_height="50dp"

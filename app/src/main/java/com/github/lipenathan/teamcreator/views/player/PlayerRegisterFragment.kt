@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.FragmentManager
 import com.github.lipenathan.teamcreator.R
 import com.github.lipenathan.teamcreator.databinding.FragmentPlayerRegisterBinding
 import com.github.lipenathan.teamcreator.model.Player
 import com.github.lipenathan.teamcreator.model.Position
 import com.github.lipenathan.teamcreator.services.persistence.PlayerMemoryDataBase
 import com.github.lipenathan.teamcreator.views.BaseFragment
-import com.github.lipenathan.teamcreator.views.PlayerListFragment
 import com.github.lipenathan.teamcreator.views.components.ModalBottomSheet
 import com.github.lipenathan.teamcreator.views.player.PlayerActivty.Navigation.BACK_STACK
 import com.github.lipenathan.teamcreator.views.player.PlayerActivty.Navigation.CONTAINER
@@ -30,6 +28,8 @@ class PlayerRegisterFragment : BaseFragment(R.layout.fragment_player_register) {
     private var rate: Int = 0
     private val playersDB = PlayerMemoryDataBase()
     private lateinit var binding: FragmentPlayerRegisterBinding
+
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -66,7 +66,7 @@ class PlayerRegisterFragment : BaseFragment(R.layout.fragment_player_register) {
                 changeStarRate(3)
                 rate = 3
             }
-            buttonNextStep.setOnClickListener {
+            buttonAddPlayer.setOnClickListener {
                 if (binding.editName.text.isNullOrEmpty()) {
                     Snackbar.make(binding.root, "Nome do jogador é obrigatório", Snackbar.LENGTH_LONG).show()
                 } else if (mainPositionName.isNullOrEmpty()) {
@@ -80,7 +80,7 @@ class PlayerRegisterFragment : BaseFragment(R.layout.fragment_player_register) {
                     val secondPosition = Position.getPositionByName(secondPositionName!!)
                     val player = Player(editName.text.toString(), mainPosition, secondPosition, rate)
                     playersDB.save(player)
-                    navigateReplacing(CONTAINER, PlayerListFragment(), BACK_STACK)
+                    requireActivity().supportFragmentManager.popBackStack()
                 }
             }
         }

@@ -28,16 +28,14 @@
     <Button
         android:id="@+id/button_next_step"
         style="@style/rounded_button_dark_grey"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginEnd="56dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:text="@string/label_button_next"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="32dp"
         android:scaleType="fitCenter"
-        android:drawableEnd="@drawable/arrow_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0.85" />
@@ -48,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/plus"
         android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
