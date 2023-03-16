@@ -1,6 +1,7 @@
-package com.github.lipenathan.teamcreator.services.persistence
+package com.github.lipenathan.teamcreator.services.persistence.memory
 
 import com.github.lipenathan.teamcreator.model.Player
+import com.github.lipenathan.teamcreator.services.persistence.BasicDAO
 
 class PlayerMemoryDataBase : BasicDAO<Player> {
 

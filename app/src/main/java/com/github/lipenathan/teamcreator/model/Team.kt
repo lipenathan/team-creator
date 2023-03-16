@@ -1,7 +1,15 @@
 package com.github.lipenathan.teamcreator.model
 
-data class Team(val players: MutableList<Player> = mutableListOf()) {
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+import java.io.Serializable
 
+@Entity
+data class Team(@Ignore val players: MutableList<Player> = mutableListOf()) : Serializable {
+
+    @PrimaryKey
+    var teamId: Long? = null
     val rating: Float get() = rating()
     val playersNumber: Int get() = players.count()
 

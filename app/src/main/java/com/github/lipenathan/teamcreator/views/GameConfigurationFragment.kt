@@ -10,7 +10,10 @@ import com.github.lipenathan.teamcreator.model.Player
 import com.github.lipenathan.teamcreator.model.Position
 import com.github.lipenathan.teamcreator.model.Team
 import com.github.lipenathan.teamcreator.model.getNext
-import com.github.lipenathan.teamcreator.services.persistence.PlayerMemoryDataBase
+import com.github.lipenathan.teamcreator.services.persistence.memory.PlayerMemoryDataBase
+import com.github.lipenathan.teamcreator.views.player.PlayerActivty.Navigation.CONTAINER
+import com.github.lipenathan.teamcreator.views.team.TeamsListFragment
+import com.github.lipenathan.teamcreator.views.team.TeamsListFragment.Companion.TEAMS
 import com.google.android.material.snackbar.Snackbar
 
 class GameConfigurationFragment : BaseFragment(R.layout.fragment_game_configuration) {
@@ -31,7 +34,12 @@ class GameConfigurationFragment : BaseFragment(R.layout.fragment_game_configurat
             } else if (binding.teamsNumberIncrementer.value <= 0) {
                 Snackbar.make(binding.root, "Número de times precisa ser maior que 0", Snackbar.LENGTH_LONG).show()
             } else {
-                createSimpleTeams().forEach(::println)
+                val teams = createSimpleTeams()
+                val bundle = Bundle()
+                bundle.putSerializable(TEAMS, teams)
+                val fragment = TeamsListFragment()
+                fragment.arguments = bundle
+                navigateReplacing(CONTAINER, fragment)
             }
         }
     }

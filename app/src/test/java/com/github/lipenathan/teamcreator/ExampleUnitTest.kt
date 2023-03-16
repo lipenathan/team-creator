@@ -2,7 +2,7 @@ package com.github.lipenathan.teamcreator
 
 import com.github.lipenathan.teamcreator.model.Player
 import com.github.lipenathan.teamcreator.model.Position
-import com.github.lipenathan.teamcreator.services.persistence.PlayerMemoryDataBase
+import com.github.lipenathan.teamcreator.services.persistence.memory.PlayerMemoryDataBase
 import com.github.lipenathan.teamcreator.views.GameConfigurationFragment
 import org.junit.Assert.assertEquals
 import org.junit.Before

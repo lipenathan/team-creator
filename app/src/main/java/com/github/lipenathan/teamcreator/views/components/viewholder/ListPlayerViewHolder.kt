@@ -15,8 +15,8 @@ class ListPlayerViewHolder(val binding: ListItemPlayerBinding) : RecyclerView.Vi
         binding.apply {
             player.also {
                 textName.text = it.name
-                textMainPosition.text = "${it.position.flag} /"
-                textSecondPosition.text = it.secondPosition.flag
+                textMainPosition.text = "${it.position?.flag} /"
+                textSecondPosition.text = it.secondPosition?.flag
                 setStarRate(it.rate)
             }
         }
