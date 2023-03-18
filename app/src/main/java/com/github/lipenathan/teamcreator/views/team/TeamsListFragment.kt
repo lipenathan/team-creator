@@ -11,6 +11,7 @@ import com.github.lipenathan.teamcreator.databinding.FragmentTeamsListBinding
 import com.github.lipenathan.teamcreator.databinding.ItemTeamListBinding
 import com.github.lipenathan.teamcreator.model.Team
 import com.github.lipenathan.teamcreator.views.BaseFragment
+import com.github.lipenathan.teamcreator.views.components.ListType
 import com.github.lipenathan.teamcreator.views.components.adapter.ListPlayerAdapter
 
 class TeamsListFragment : BaseFragment(R.layout.fragment_teams_list) {
@@ -27,9 +28,12 @@ class TeamsListFragment : BaseFragment(R.layout.fragment_teams_list) {
     private fun setList(list: Array<Team>) {
         list.forEachIndexed { index, team ->
             val layoutTeam = ItemTeamListBinding.inflate(LayoutInflater.from(requireContext()))
-            val adapter = ListPlayerAdapter()
+            val adapter = ListPlayerAdapter(ListType.TEAMS)
             val layoutManager = LinearLayoutManager(requireContext())
             layoutManager.orientation = VERTICAL
+            layoutTeam.listTeam.setHasFixedSize(true)
+            layoutTeam.listTeam.isNestedScrollingEnabled = false
+            layoutTeam.listTeam.isScrollContainer = false
             layoutTeam.listTeam.layoutManager = layoutManager
             layoutTeam.listTeam.adapter = adapter
             binding.viewTeams.addView(layoutTeam.root)

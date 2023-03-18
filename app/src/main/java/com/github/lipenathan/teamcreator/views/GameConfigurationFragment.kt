@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.github.lipenathan.teamcreator.R
 import com.github.lipenathan.teamcreator.databinding.FragmentGameConfigurationBinding
 import com.github.lipenathan.teamcreator.model.Player
 import com.github.lipenathan.teamcreator.model.Position
 import com.github.lipenathan.teamcreator.model.Team
 import com.github.lipenathan.teamcreator.model.getNext
-import com.github.lipenathan.teamcreator.services.persistence.memory.PlayerMemoryDataBase
+import com.github.lipenathan.teamcreator.viewmodel.GameConfigurationViewModel
 import com.github.lipenathan.teamcreator.views.player.PlayerActivty.Navigation.CONTAINER
 import com.github.lipenathan.teamcreator.views.team.TeamsListFragment
 import com.github.lipenathan.teamcreator.views.team.TeamsListFragment.Companion.TEAMS
@@ -19,12 +20,28 @@ import com.google.android.material.snackbar.Snackbar
 class GameConfigurationFragment : BaseFragment(R.layout.fragment_game_configuration) {
 
     private lateinit var binding: FragmentGameConfigurationBinding
-    private val playersDb = PlayerMemoryDataBase()
+    private lateinit var viewModel: GameConfigurationViewModel
+    private lateinit var players: List<Player>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(GameConfigurationViewModel::class.java)
+        setObservers()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentGameConfigurationBinding.inflate(inflater, container, false)
+        viewModel.getAll()
         setListeners()
         return binding.root
+    }
+
+    private fun setObservers() {
+        viewModel.apply {
+            players.observe(this@GameConfigurationFragment) {
+                this@GameConfigurationFragment.players = it
+            }
+        }
     }
 
     private fun setListeners() {
@@ -34,18 +51,21 @@ class GameConfigurationFragment : BaseFragment(R.layout.fragment_game_configurat
             } else if (binding.teamsNumberIncrementer.value <= 0) {
                 Snackbar.make(binding.root, "Número de times precisa ser maior que 0", Snackbar.LENGTH_LONG).show()
             } else {
-                val teams = createSimpleTeams()
-                val bundle = Bundle()
-                bundle.putSerializable(TEAMS, teams)
-                val fragment = TeamsListFragment()
-                fragment.arguments = bundle
-                navigateReplacing(CONTAINER, fragment)
+                if (!players.isEmpty()) {
+                    val teams = createSimpleTeams(players.toMutableList())
+                    val bundle = Bundle()
+                    bundle.putSerializable(TEAMS, teams)
+                    val fragment = TeamsListFragment()
+                    fragment.arguments = bundle
+                    navigateReplacing(CONTAINER, fragment)
+                } else {
+                    Snackbar.make(binding.root, "Cadastre alguns jogadores", Snackbar.LENGTH_LONG).show()
+                }
             }
         }
     }
 
-    private fun createTeams() {
-        val players = playersDb.getAll()
+    private fun createTeams(players: List<Player>) {
         val ppTeam = binding.playersPerTeamIncrementer.value
         val teamsNumber = binding.teamsNumberIncrementer.value
         val teams = List(teamsNumber) {
@@ -85,8 +105,7 @@ class GameConfigurationFragment : BaseFragment(R.layout.fragment_game_configurat
     /**
      * Separa times baseado apenas no rating do jogador e não por posição (exceto goleiro).
      */
-    private fun createSimpleTeams(): Array<Team> {
-        val players = playersDb.getAll().toMutableList()
+    private fun createSimpleTeams(players: MutableList<Player>): Array<Team> {
         val ppTeam = binding.playersPerTeamIncrementer.value
         val teamsNumber = binding.teamsNumberIncrementer.value
         val teams = Array(teamsNumber) {

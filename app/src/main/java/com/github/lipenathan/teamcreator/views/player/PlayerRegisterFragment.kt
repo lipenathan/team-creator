@@ -64,17 +64,21 @@ class PlayerRegisterFragment : BaseFragment(R.layout.fragment_player_register) {
                 dialog.show()
             }
             saved.observe(this@PlayerRegisterFragment) {
-                Snackbar.make(binding.root, "Jogador salvo com sucesso", Snackbar.LENGTH_LONG).setAction("OK", {
-                    requireActivity().supportFragmentManager.popBackStack()
-                }).addCallback(object : BaseCallback<Snackbar>() {
+                val snackbar = Snackbar.make(binding.root, "Jogador salvo com sucesso", Snackbar.LENGTH_LONG)
+
+                snackbar.addCallback(object : BaseCallback<Snackbar>() {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                        super.onDismissed(transientBottomBar, event)
-                        requireActivity().supportFragmentManager.popBackStack()
+                        if (snackbar.isShown) {
+                            super.onDismissed(transientBottomBar, event)
+                            this@PlayerRegisterFragment.requireActivity().supportFragmentManager.popBackStack()
+                        }
                     }
 
                     override fun onShown(transientBottomBar: Snackbar?) {
                         super.onShown(transientBottomBar)
                     }
+                }).setAction("OK", {
+                    requireActivity().supportFragmentManager.popBackStack()
                 }).show()
             }
         }

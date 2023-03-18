@@ -15,7 +15,7 @@ class NumberIncrementer @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyle, defStyleRes) {
 
     private val binding: NumberIncrementerBinding
-    var value = 0
+    var value = 1
         private set
 
     init {

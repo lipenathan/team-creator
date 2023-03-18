@@ -11,12 +11,9 @@ import com.github.lipenathan.teamcreator.services.persistence.local.AppDataBase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
-class PlayerRegisterViewModel(application: Application) : AndroidViewModel(application) {
+class PlayerRegisterViewModel(application: Application) : BaseViewModel(application) {
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
-
-    private val _saved = MutableLiveData<Boolean>()
+    private val _saved = SingleLiveEvent<Boolean>()
     val saved: LiveData<Boolean> = _saved
 
     private val dataBase: AppDataBase
@@ -27,9 +24,6 @@ class PlayerRegisterViewModel(application: Application) : AndroidViewModel(appli
 
     fun savePlayer(player: Player) {
         val playerDB = getPlayerDB()
-        val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-            _error.value = throwable.message
-        }
         viewModelScope.launch(exceptionHandler) {
             playerDB.save(player)
             _saved.value = true
