@@ -14,15 +14,18 @@ class GameConfigurationViewModel(application: Application) : BaseViewModel(appli
     private val _players = MutableLiveData<List<Player>>()
     val players: LiveData<List<Player>> = _players
 
+    var vTeamsNumber: Int = 0
+    var vPlayersPerTeam: Int = 0
+
     private val database: AppDataBase
 
     init {
         database = Room.databaseBuilder(getApplication(), AppDataBase::class.java, "team-creator-database").build()
     }
 
-    fun getAll() {
+    fun getAllPlayers() {
         val playerDao = getPlayerDao()
-        viewModelScope.launch(exceptionHandler) {
+        viewModelScope.launch(exceptionsHandler) {
             _players.value = playerDao.getAll()
         }
     }

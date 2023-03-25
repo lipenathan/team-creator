@@ -3,7 +3,7 @@ package com.github.lipenathan.teamcreator.views.components.viewholder
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.github.lipenathan.teamcreator.R
 import com.github.lipenathan.teamcreator.databinding.ListItemPlayerBinding
@@ -11,7 +11,8 @@ import com.github.lipenathan.teamcreator.model.Player
 import com.github.lipenathan.teamcreator.views.components.ListType
 
 
-class ListPlayerViewHolder(val binding: ListItemPlayerBinding,val type: ListType) : RecyclerView.ViewHolder(binding.root) {
+class ListPlayerViewHolder(val binding: ListItemPlayerBinding, val type: ListType, val itemClickedCallback: ((Player) -> Unit)?) :
+    RecyclerView.ViewHolder(binding.root) {
 
     private val context = binding.root.context
     private val stars: List<ImageView> get() = listOf(binding.star1, binding.star2, binding.star3)
@@ -24,17 +25,18 @@ class ListPlayerViewHolder(val binding: ListItemPlayerBinding,val type: ListType
                 textSecondPosition.text = it.secondPosition?.flag
                 setStarRate(it.rate)
                 divider.visibility = if (last) GONE else VISIBLE
-                when(type) {
+                when (type) {
                     ListType.ALL -> {
                         if (last) {
-                            val newLayoutParams = root.layoutParams as RecyclerView.LayoutParams
-                            newLayoutParams.setMargins(0,0,0,32)
-                            root.layoutParams=  newLayoutParams
+                            root.updateLayoutParams<RecyclerView.LayoutParams> {
+                                bottomMargin = 32
+                            }
                         }
                     }
-                    ListType.TEAMS ->{}
+                    ListType.TEAMS -> {}
                 }
             }
+            itemClickedCallback?.let { root.setOnClickListener { it(player) } }
         }
     }
 

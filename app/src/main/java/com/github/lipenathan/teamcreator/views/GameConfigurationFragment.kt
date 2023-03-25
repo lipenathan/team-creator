@@ -13,6 +13,7 @@ import com.github.lipenathan.teamcreator.model.Team
 import com.github.lipenathan.teamcreator.model.getNext
 import com.github.lipenathan.teamcreator.viewmodel.GameConfigurationViewModel
 import com.github.lipenathan.teamcreator.views.player.PlayerActivty.Navigation.CONTAINER
+import com.github.lipenathan.teamcreator.views.team.TeamMutableListFragment
 import com.github.lipenathan.teamcreator.views.team.TeamsListFragment
 import com.github.lipenathan.teamcreator.views.team.TeamsListFragment.Companion.TEAMS
 import com.google.android.material.snackbar.Snackbar
@@ -31,7 +32,7 @@ class GameConfigurationFragment : BaseFragment(R.layout.fragment_game_configurat
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentGameConfigurationBinding.inflate(inflater, container, false)
-        viewModel.getAll()
+        viewModel.getAllPlayers()
         setListeners()
         return binding.root
     }
@@ -45,22 +46,41 @@ class GameConfigurationFragment : BaseFragment(R.layout.fragment_game_configurat
     }
 
     private fun setListeners() {
-        binding.buttonCreateTeams.setOnClickListener {
-            if (binding.playersPerTeamIncrementer.value <= 0) {
-                Snackbar.make(binding.root, "Número de jogadores por time precisa ser maior que 0", Snackbar.LENGTH_LONG).show()
-            } else if (binding.teamsNumberIncrementer.value <= 0) {
-                Snackbar.make(binding.root, "Número de times precisa ser maior que 0", Snackbar.LENGTH_LONG).show()
-            } else {
-                if (!players.isEmpty()) {
-                    val teams = createSimpleTeams(players.toMutableList())
-                    val bundle = Bundle()
-                    bundle.putSerializable(TEAMS, teams)
-                    val fragment = TeamsListFragment()
-                    fragment.arguments = bundle
-                    navigateReplacing(CONTAINER, fragment)
+        binding.apply {
+            buttonGenerateTeams.setOnClickListener {
+                if (binding.playersPerTeamIncrementer.value <= 0) {
+                    Snackbar.make(binding.root, "Número de jogadores por time precisa ser maior que 0", Snackbar.LENGTH_LONG).show()
+                } else if (binding.teamsNumberIncrementer.value <= 0) {
+                    Snackbar.make(binding.root, "Número de times precisa ser maior que 0", Snackbar.LENGTH_LONG).show()
                 } else {
-                    Snackbar.make(binding.root, "Cadastre alguns jogadores", Snackbar.LENGTH_LONG).show()
+                    if (!players.isEmpty()) {
+                        val teams = createSimpleTeams(players.toMutableList())
+                        val bundle = Bundle()
+                        bundle.putSerializable(TEAMS, teams)
+                        val fragment = TeamMutableListFragment()
+                        fragment.arguments = bundle
+                        navigateReplacing(CONTAINER, fragment)
+                    } else {
+                        Snackbar.make(binding.root, "Cadastre alguns jogadores", Snackbar.LENGTH_LONG).show()
+                    }
                 }
+            }
+            buttonCreateTeams.setOnClickListener {
+                val teamsNumber = binding.teamsNumberIncrementer.value
+                val teams = Array(teamsNumber) {
+                    Team()
+                }
+                val bundle = Bundle()
+                bundle.putSerializable(TEAMS, teams)
+                val fragment = TeamMutableListFragment()
+                fragment.arguments = bundle
+                navigateReplacing(CONTAINER, fragment)
+            }
+            teamsNumberIncrementer.setCustomClickListener {
+                viewModel.vTeamsNumber = it.value
+            }
+            playersPerTeamIncrementer.setCustomClickListener {
+                viewModel.vPlayersPerTeam = it.value
             }
         }
     }

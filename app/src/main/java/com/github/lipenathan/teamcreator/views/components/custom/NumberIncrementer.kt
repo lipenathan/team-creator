@@ -19,7 +19,7 @@ class NumberIncrementer @JvmOverloads constructor(
         private set
 
     init {
-        binding = NumberIncrementerBinding.inflate(LayoutInflater.from(context), this,  true)
+        binding = NumberIncrementerBinding.inflate(LayoutInflater.from(context), this, true)
         setListeners()
     }
 
@@ -44,4 +44,9 @@ class NumberIncrementer @JvmOverloads constructor(
             }
         }
     }
+
+    fun setCustomClickListener(clickListener: (NumberIncrementer)-> Unit) {
+        clickListener(this)
+    }
+
 }

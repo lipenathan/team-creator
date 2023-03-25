@@ -1,14 +1,11 @@
 package com.github.lipenathan.teamcreator.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.github.lipenathan.teamcreator.model.Player
 import com.github.lipenathan.teamcreator.services.persistence.local.AppDataBase
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class PlayerRegisterViewModel(application: Application) : BaseViewModel(application) {
@@ -24,7 +21,7 @@ class PlayerRegisterViewModel(application: Application) : BaseViewModel(applicat
 
     fun savePlayer(player: Player) {
         val playerDB = getPlayerDB()
-        viewModelScope.launch(exceptionHandler) {
+        viewModelScope.launch(exceptionsHandler) {
             playerDB.save(player)
             _saved.value = true
         }

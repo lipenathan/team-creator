@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
-    protected val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+    protected val exceptionsHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         _error.value = throwable.message
     }
 

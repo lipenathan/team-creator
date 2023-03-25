@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.github.lipenathan.teamcreator.R
 import com.github.lipenathan.teamcreator.databinding.FragmentPlayersListBinding
 import com.github.lipenathan.teamcreator.model.Player
-import com.github.lipenathan.teamcreator.services.persistence.memory.PlayerMemoryDataBase
 import com.github.lipenathan.teamcreator.viewmodel.PlayerListViewModel
 import com.github.lipenathan.teamcreator.views.BaseFragment
 import com.github.lipenathan.teamcreator.views.GameConfigurationFragment

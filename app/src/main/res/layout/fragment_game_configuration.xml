@@ -52,7 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/label_teams_number" />
 
-
     <Button
         android:id="@+id/button_create_teams"
         style="@style/rounded_button_dark_grey"
@@ -60,8 +59,23 @@
         android:layout_height="50dp"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:text="@string/label_button_create_team"
+        android:text="Montar time"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="32dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_generate_teams"
+        app:layout_constraintVertical_bias="0.85" />
+
+    <Button
+        android:id="@+id/button_generate_teams"
+        style="@style/rounded_button"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:text="@string/label_button_create_team"
+        app:layout_constraintStart_toEndOf="@id/button_create_teams"
         android:layout_marginBottom="32dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
